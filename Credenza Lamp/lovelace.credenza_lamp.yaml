@@ -1,0 +1,35 @@
+type: custom:stack-in-card
+cards:
+  - type: custom:mushroom-light-card
+    entity: light.credenza_lamp
+    use_light_color: true
+    show_brightness_control: true
+    show_color_temp_control: true
+    show_color_control: true
+    collapsible_controls: false
+  - type: custom:mushroom-select-card
+    entity: input_select.credenza_lamp
+    icon_type: none
+    secondary_info: none
+    primary_info: none
+    card_mod:
+      style: |
+        ha-card {
+          position: absolute;
+          top: 0px;
+          right: 0px;
+          width: 40%;
+          --ha-card-border-width: 0;
+        }
+card_mod:
+  style: |
+    :host {
+      border-radius: var(--ha-card-border-radius, 12px);
+      background: var(--card-background-color);
+    }
+    ha-card {
+      overflow: visible !important;
+      {% if is_state('light.credenza_lamp', 'on') %}
+        background: {{ '#%02x%02x%02x13' % state_attr('light.credenza_lamp', 'rgb_color') }};
+      {% endif %}
+    }
