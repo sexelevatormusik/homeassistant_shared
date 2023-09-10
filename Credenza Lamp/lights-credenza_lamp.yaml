@@ -1,0 +1,60 @@
+# Credenza Lamp
+
+  - platform: group
+    name: "Group Credenza Lamp"
+    entities:
+      - light.credenza_bulb_a
+      - light.credenza_bulb_b
+
+  - platform: template
+    lights:
+      credenza_lamp:
+        friendly_name: "Credenza Lamp"
+        level_template: "{{ state_attr('light.group_credenza_lamp', 'brightness') | int }}"
+        value_template: "{{ is_state('light.group_credenza_lamp', 'on') }}"
+        temperature_template: "{{ state_attr('light.group_credenza_lamp', 'color_temp') }}"
+        color_template: "({{ state_attr('light.group_credenza_lamp', 'hs_color')[0] }}, {{ state_attr('light.group_credenza_lamp', 'hs_color')[1]  }})"
+        turn_on:
+          - service: input_boolean.turn_on
+            entity_id: input_boolean.credenza_lamp_auto
+        turn_off:
+          - service: input_select.select_option
+            data:
+              option: "Turn Off"
+            entity_id: input_select.credenza_lamp
+        effect_list_template: "{{ state_attr('input_select.credenza_lamp', 'options') }}"
+        effect_template: "{{ states('input_select.credenza_lamp') }}"
+        set_effect:
+          - service: input_select.select_option
+            data: { "option" : "{{ effect }}" }
+            target:
+              entity_id: input_select.credenza_lamp
+        set_level:
+          - service: input_boolean.turn_on
+            entity_id: input_boolean.credenza_lamp_called
+          - service: light.turn_on
+            data_template:
+              brightness: "{{ brightness }}"
+            entity_id: light.group_credenza_lamp
+          - service: input_boolean.turn_on
+            entity_id: input_boolean.credenza_lamp_undefined
+        set_temperature:
+          - service: input_boolean.turn_on
+            entity_id: input_boolean.credenza_lamp_called
+          - service: light.turn_on
+            data_template:
+              color_temp: "{{ color_temp }}"
+            entity_id: light.group_credenza_lamp
+          - service: input_boolean.turn_on
+            entity_id: input_boolean.credenza_lamp_undefined
+        set_color:
+          - service: input_boolean.turn_on
+            entity_id: input_boolean.credenza_lamp_called
+          - service: light.turn_on
+            data_template:
+              hs_color:
+                - "{{ h }}"
+                - "{{ s }}"
+            entity_id: light.group_credenza_lamp
+          - service: input_boolean.turn_on
+            entity_id: input_boolean.credenza_lamp_undefined
