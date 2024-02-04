@@ -1,0 +1,452 @@
+light:
+
+  - platform: group
+    name: "Group Office Lights"
+    entities:
+      - light.office_light
+      - light.office_lamp
+
+  - platform: template
+    lights:
+      office_lights:
+        friendly_name: "Office Lights"
+        level_template: "{{ state_attr('light.group_office_lights', 'brightness') | int }}"
+        value_template: "{{ is_state('light.group_office_lights', 'on') }}"
+        temperature_template: "{{ state_attr('light.group_office_lights', 'color_temp') }}"
+        color_template: "({{ state_attr('light.group_office_lights', 'hs_color')[0] }}, {{ state_attr('light.group_office_lights', 'hs_color')[1]  }})"
+        turn_on:
+          - service: input_boolean.turn_on
+            entity_id: input_boolean.office_lights_auto
+        turn_off:
+          - service: input_select.select_option
+            data:
+              option: "Turn Off"
+            entity_id: input_select.office_lights
+        effect_list_template: "{{ state_attr('input_select.office_lights', 'options') }}"
+        effect_template: "{{ states('input_select.office_lights') }}"
+        set_effect:
+          - service: input_select.select_option
+            data: { "option" : "{{ effect }}" }
+            target:
+              entity_id: input_select.office_lights
+        set_level:
+          - service: input_boolean.turn_on
+            entity_id: input_boolean.office_lights_called
+          - service: light.turn_on
+            data_template:
+              brightness: "{{ brightness }}"
+            entity_id: light.group_office_lights
+          - service: input_boolean.turn_on
+            entity_id: input_boolean.office_lights_update
+        set_temperature:
+          - service: input_boolean.turn_on
+            entity_id: input_boolean.office_lights_called
+          - service: light.turn_on
+            data_template:
+              color_temp: "{{ color_temp }}"
+            entity_id: light.group_office_lights
+          - service: input_boolean.turn_on
+            entity_id: input_boolean.office_lights_update
+        set_color:
+          - service: input_boolean.turn_on
+            entity_id: input_boolean.office_lights_called
+          - service: light.turn_on
+            data_template:
+              hs_color:
+                - "{{ h }}"
+                - "{{ s }}"
+            entity_id: light.group_office_lights
+          - service: input_boolean.turn_on
+            entity_id: input_boolean.office_lights_update
+
+  - platform: template
+    lights:
+      office_light:
+        friendly_name: "Office Light"
+        level_template: "{{ state_attr('light.office_light_bulb', 'brightness') | int }}"
+        value_template: "{{ is_state('light.office_light_bulb', 'on') }}"
+        temperature_template: "{{ state_attr('light.office_light_bulb', 'color_temp') }}"
+        color_template: "({{ state_attr('light.office_light_bulb', 'hs_color')[0] }}, {{ state_attr('light.office_light_bulb', 'hs_color')[1]  }})"
+        turn_on:
+          - service: input_boolean.turn_on
+            entity_id: input_boolean.office_light_auto
+        turn_off:
+          - service: input_select.select_option
+            data:
+              option: "Turn Off"
+            entity_id: input_select.office_light
+        effect_list_template: "{{ state_attr('input_select.office_light', 'options') }}"
+        effect_template: "{{ states('input_select.office_light') }}"
+        set_effect:
+          - service: input_select.select_option
+            data: { "option" : "{{ effect }}" }
+            target:
+              entity_id: input_select.office_light
+        set_level:
+          - service: input_boolean.turn_on
+            entity_id: input_boolean.office_light_called
+          - service: light.turn_on
+            data_template:
+              brightness: "{{ brightness }}"
+            entity_id: light.office_light_bulb
+          - service: input_boolean.turn_on
+            entity_id: input_boolean.office_light_update
+        set_temperature:
+          - service: input_boolean.turn_on
+            entity_id: input_boolean.office_light_called
+          - service: light.turn_on
+            data_template:
+              color_temp: "{{ color_temp }}"
+            entity_id: light.office_light_bulb
+          - service: input_boolean.turn_on
+            entity_id: input_boolean.office_light_update
+        set_color:
+          - service: input_boolean.turn_on
+            entity_id: input_boolean.office_light_called
+          - service: light.turn_on
+            data_template:
+              hs_color:
+                - "{{ h }}"
+                - "{{ s }}"
+            entity_id: light.office_light_bulb
+          - service: input_boolean.turn_on
+            entity_id: input_boolean.office_light_update
+
+  - platform: template
+    lights:
+      office_lamp:
+        friendly_name: "Office Lamp"
+        level_template: "{{ state_attr('light.office_lamp_bulb', 'brightness') | int }}"
+        value_template: "{{ is_state('light.office_lamp_bulb', 'on') }}"
+        temperature_template: "{{ state_attr('light.office_lamp_bulb', 'color_temp') }}"
+        color_template: "({{ state_attr('light.office_lamp_bulb', 'hs_color')[0] }}, {{ state_attr('light.office_lamp_bulb', 'hs_color')[1]  }})"
+        turn_on:
+          - service: input_boolean.turn_on
+            entity_id: input_boolean.office_lamp_auto
+        turn_off:
+          - service: input_select.select_option
+            data:
+              option: "Turn Off"
+            entity_id: input_select.office_lamp
+        effect_list_template: "{{ state_attr('input_select.office_lamp', 'options') }}"
+        effect_template: "{{ states('input_select.office_lamp') }}"
+        set_effect:
+          - service: input_select.select_option
+            data: { "option" : "{{ effect }}" }
+            target:
+              entity_id: input_select.office_lamp
+        set_level:
+          - service: input_boolean.turn_on
+            entity_id: input_boolean.office_lamp_called
+          - service: light.turn_on
+            data_template:
+              brightness: "{{ brightness }}"
+            entity_id: light.office_lamp_bulb
+          - service: input_boolean.turn_on
+            entity_id: input_boolean.office_lamp_update
+        set_temperature:
+          - service: input_boolean.turn_on
+            entity_id: input_boolean.office_lamp_called
+          - service: light.turn_on
+            data_template:
+              color_temp: "{{ color_temp }}"
+            entity_id: light.office_lamp_bulb
+          - service: input_boolean.turn_on
+            entity_id: input_boolean.office_lamp_update
+        set_color:
+          - service: input_boolean.turn_on
+            entity_id: input_boolean.office_lamp_called
+          - service: light.turn_on
+            data_template:
+              hs_color:
+                - "{{ h }}"
+                - "{{ s }}"
+            entity_id: light.office_lamp_bulb
+          - service: input_boolean.turn_on
+            entity_id: input_boolean.office_lamp_update
+
+  - platform: template
+    lights:
+      desk_lamp:
+        friendly_name: "Desk Lamp"
+        value_template: "{{ is_state('switch.desk_lamp', 'on') }}"
+        turn_on:
+          - service: input_boolean.turn_on
+            entity_id: input_boolean.desk_lamp_auto
+        turn_off:
+          - service: input_select.select_option
+            data:
+              option: "Turn Off"
+            entity_id: input_select.desk_lamp
+        effect_list_template: "{{ state_attr('input_select.desk_lamp', 'options') }}"
+        effect_template: "{{ states('input_select.desk_lamp') }}"
+        set_effect:
+          - service: input_select.select_option
+            data: { "option" : "{{ effect }}" }
+            target:
+              entity_id: input_select.desk_lamp
+
+  - platform: group
+    name: "Closet Light"
+    entities:
+      - light.network_closet_light
+
+  - platform: template
+    lights:
+      network_closet_light:
+        friendly_name: "Network Closet Light"
+        level_template: "{{ state_attr('light.network_closet_light_bulb', 'brightness') | int }}"
+        value_template: "{{ is_state('light.network_closet_light_bulb', 'on') }}"
+        turn_on:
+          - service: input_boolean.turn_on
+            entity_id: input_boolean.network_closet_light_auto
+        turn_off:
+          - service: input_select.select_option
+            data:
+              option: "Turn Off"
+            entity_id: input_select.network_closet_light
+        effect_list_template: "{{ state_attr('input_select.network_closet_light', 'options') }}"
+        effect_template: "{{ states('input_select.network_closet_light') }}"
+        set_effect:
+          - service: input_select.select_option
+            data: { "option" : "{{ effect }}" }
+            target:
+              entity_id: input_select.network_closet_light
+        set_level:
+          - service: input_boolean.turn_on
+            entity_id: input_boolean.network_closet_light_called
+          - service: light.turn_on
+            data_template:
+              brightness: "{{ brightness }}"
+            entity_id: light.network_closet_light_bulb
+          - service: input_boolean.turn_on
+            entity_id: input_boolean.network_closet_light_update
+
+template:
+
+  - sensor:
+      - name: "Office Lights Reconcile"
+        state: >
+          {% if is_state('input_boolean.office_light_update', 'on')
+             or is_state('input_boolean.office_lamp_update', 'on')
+             or is_state('input_boolean.desk_lamp_update', 'on')
+             or is_state('input_boolean.network_closet_light_update', 'on') %}
+             disabled
+          {% else %}
+             enabled
+          {% endif %}
+
+input_select:
+
+  office_lights:
+    name: "Office Lights"
+    options:
+      - "--Select--"
+      - "Turn Off"
+      - "Shuffle"
+      - "Maximum"
+      - "Bright"
+      - "Normal"
+      - "Soft"
+      - "Low"
+      - "Night"
+      - "Random"
+      - "Undefined"
+    initial: "--Select--"
+    icon: mdi:lightbulb-group
+
+  office_light:
+    name: "Office Light"
+    options:
+      - "--Select--"
+      - "Turn Off"
+      - "Shuffle"
+      - "Maximum"
+      - "Bright"
+      - "Normal"
+      - "Soft"
+      - "Low"
+      - "Night"
+      - "Random"
+      - "Undefined"
+    initial: "--Select--"
+    icon: mdi:lightbulb
+
+  office_lamp:
+    name: "Office Lamp"
+    options:
+      - "--Select--"
+      - "Turn Off"
+      - "Shuffle"
+      - "Maximum"
+      - "Bright"
+      - "Normal"
+      - "Soft"
+      - "Low"
+      - "Night"
+      - "Random"
+      - "Undefined"
+    initial: "--Select--"
+    icon: mdi:lamp
+
+  network_closet_light:
+    name: "Network Closet Light"
+    options:
+      - "--Select--"
+      - "Turn Off"
+      - "Shuffle"
+      - "Maximum"
+      - "Bright"
+      - "Normal"
+      - "Soft"
+      - "Low"
+      - "Night"
+    initial: "--Select--"
+    icon: mdi:lightbulb
+
+  desk_lamp:
+    name: "Desk Lamp"
+    options:
+      - "--Select--"
+      - "Turn Off"
+      - "Turn On"
+    initial: "--Select--"
+    icon: mdi:lamp
+
+input_number:
+
+  lights_brightness_set_office:
+    name: "Office Set Brightness"
+    min: 0
+    max: 255
+    step: 1
+    mode: slider
+    icon: hue:scene-bright
+
+# Harmony Lights Media Center
+
+  harmony_lights_media_center_brightness:
+    name: "Harmony Lights Media Center Brightness"
+    min: 0
+    max: 255
+    step: 1
+    initial: 0
+    mode: box
+  harmony_lights_media_center_brightness_previous:
+    name: "Harmony Lights Media Center Previous Brightness"
+    min: 0
+    max: 255
+    step: 1
+    initial: 0
+    mode: box
+
+# Harmony Scenes Media Center
+
+  harmony_scenes_media_center_select:
+    name: "Harmony Scenes Media Center Select"
+    min: 0
+    max: 255
+    step: 1
+    initial: 0
+    mode: box
+
+
+input_boolean:
+
+
+  dynamic_shuffle_enabled:
+    name: "Office Lights Automatic"
+    initial: on
+
+  office_lights_auto:
+    name: "Office Lights Automatic"
+    initial: off
+
+  office_lights_reset:
+    name: "Office Lights Reset"
+    initial: off
+
+  office_lights_update:
+    name: "Office Lights Update"
+    initial: off
+
+  office_lights_called:
+    name: "Office Lights Called"
+    initial: off
+
+  office_lights_reconcile:
+    name: "Office Lights Reconcile"
+    initial: off
+
+  office_lights_dynamic:
+    name: "Office Lights Dynamic"
+    initial: off
+
+
+  office_light_auto:
+    name: "Office Light Automatic"
+    initial: off
+
+  office_light_reset:
+    name: "Office Light Reset"
+    initial: off
+
+  office_light_update:
+    name: "Office Light Update"
+    initial: off
+
+  office_light_called:
+    name: "Office Light Called"
+    initial: off
+    icon: mdi:home-automation
+
+  office_lamp_auto:
+    name: "Office Lamp Automatic"
+    initial: off
+
+  office_lamp_reset:
+    name: "Office Lamp Reset"
+    initial: off
+
+  office_lamp_update:
+    name: "Office Lamp Update"
+    initial: off
+
+  office_lamp_called:
+    name: "Office Lamp Called"
+    initial: off
+
+
+  network_closet_light_auto:
+    name: "Network Closet Light Automatic"
+    initial: off
+
+  network_closet_light_reset:
+    name: "Network Closet Light Reset"
+    initial: off
+
+  network_closet_light_update:
+    name: "Network Closet Light Update"
+    initial: off
+
+  network_closet_light_called:
+    name: "Network Closet Light Called"
+    initial: off
+
+
+  desk_lamp_auto:
+    name: "Desk Lamp Automatic"
+    initial: off
+
+  desk_lamp_reset:
+    name: "Desk Lamp Reset"
+    initial: off
+
+  desk_lamp_update:
+    name: "Desk Lamp Update"
+    initial: off
+
+  desk_lamp_called:
+    name: "Desk Lamp Called"
+    initial: off
+

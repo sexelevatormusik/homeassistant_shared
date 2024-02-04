@@ -1,0 +1,284 @@
+ll_template: office-lights-helpers
+view_layout:
+  grid-area: help
+type: custom:collapsable-cards
+title: Helpers
+cards:
+  - type: custom:layout-card
+    layout_type: custom:grid-layout
+    layout:
+      grid-template-columns: 1fr
+      grid-template-rows: auto
+      mediaquery:
+        '(max-width: 800px)':
+          grid-template-columns: 1fr
+          grid-template-rows: auto
+        '(max-width: 1600px)':
+          grid-template-columns: 1fr
+          grid-template-rows: auto
+    cards:
+      - type: custom:collapsable-cards
+        title: Office Lights
+        cards:
+          - type: custom:layout-card
+            layout_type: custom:grid-layout
+            layout:
+              grid-template-columns: 1fr 1fr 1fr
+              grid-template-rows: auto
+              mediaquery:
+                '(max-width: 800px)':
+                  grid-template-columns: 1fr
+                  grid-template-rows: auto
+                '(max-width: 1600px)':
+                  grid-template-columns: 1fr 1fr
+                  grid-template-rows: auto
+            cards:
+              - type: custom:collapsable-cards
+                title: Light Entities
+                defaultOpen: true
+                cards:
+                  - type: entities
+                    entities:
+                      - light.office_lights
+                  - type: entities
+                    entities:
+                      - light.group_office_lights
+                  - type: custom:collapsable-cards
+                    title: Sensors
+                    defaultOpen: true
+                    cards:
+                      - type: entities
+                        entities:
+                          - sensor.office_lights_reconcile
+              - type: custom:collapsable-cards
+                title: configuration.yaml inputs
+                cards:
+                  - type: entities
+                    entities:
+                      - input_select.office_lights
+                      - input_number.lights_brightness_set_office
+                  - type: entities
+                    entities:
+                      - input_boolean.office_lights_auto
+                      - input_boolean.office_lights_called
+                      - input_boolean.office_lights_update
+                      - input_boolean.office_lights_reset
+                  - type: entities
+                    entities:
+                      - input_boolean.office_lights_dynamic
+                      - input_boolean.office_lights_reconcile
+                card_mod:
+                  style: |
+                    ha-card {
+                      overflow: visible !important;
+                    }
+        card_mod:
+          style: |
+            ha-card {
+              overflow: visible !important;
+            }
+      - type: custom:collapsable-cards
+        title: Office Light
+        cards:
+          - type: custom:layout-card
+            layout_type: custom:grid-layout
+            layout:
+              grid-template-columns: 1fr 1fr 1fr
+              grid-template-rows: auto
+              mediaquery:
+                '(max-width: 800px)':
+                  grid-template-columns: 1fr
+                  grid-template-rows: auto
+                '(max-width: 1600px)':
+                  grid-template-columns: 1fr 1fr
+                  grid-template-rows: auto
+            cards:
+              - type: custom:collapsable-cards
+                title: Light Entities
+                defaultOpen: true
+                cards:
+                  - type: entities
+                    entities:
+                      - light.office_light
+                  - type: entities
+                    entities:
+                      - light.office_light_bulb
+              - type: custom:collapsable-cards
+                title: configuration.yaml inputs
+                cards:
+                  - type: entities
+                    entities:
+                      - input_select.office_light
+                      - button.set_brightness_office_light
+                  - type: entities
+                    entities:
+                      - input_boolean.office_light_auto
+                      - input_boolean.office_light_called
+                      - input_boolean.office_light_update
+                      - input_boolean.office_light_reset
+                card_mod:
+                  style: |
+                    ha-card {
+                      overflow: visible !important;
+                    }
+        card_mod:
+          style: |
+            ha-card {
+              overflow: visible !important;
+            }
+      - type: custom:collapsable-cards
+        title: Office Lamp
+        cards:
+          - type: custom:layout-card
+            layout_type: custom:grid-layout
+            layout:
+              grid-template-columns: 1fr 1fr 1fr
+              grid-template-rows: auto
+              mediaquery:
+                '(max-width: 800px)':
+                  grid-template-columns: 1fr
+                  grid-template-rows: auto
+                '(max-width: 1600px)':
+                  grid-template-columns: 1fr 1fr
+                  grid-template-rows: auto
+            cards:
+              - type: custom:collapsable-cards
+                title: Light Entities
+                defaultOpen: true
+                cards:
+                  - type: entities
+                    entities:
+                      - light.office_lamp
+                  - type: entities
+                    entities:
+                      - light.office_lamp_bulb
+              - type: custom:collapsable-cards
+                title: configuration.yaml inputs
+                cards:
+                  - type: entities
+                    entities:
+                      - input_select.office_lamp
+                      - button.set_brightness_office_lamp
+                  - type: entities
+                    entities:
+                      - input_boolean.office_lamp_auto
+                      - input_boolean.office_lamp_called
+                      - input_boolean.office_lamp_update
+                      - input_boolean.office_lamp_reset
+                card_mod:
+                  style: |
+                    ha-card {
+                      overflow: visible !important;
+                    }
+        card_mod:
+          style: |
+            ha-card {
+              overflow: visible !important;
+            }
+      - type: custom:collapsable-cards
+        title: Desk Lamp
+        cards:
+          - type: custom:layout-card
+            layout_type: custom:grid-layout
+            layout:
+              grid-template-columns: 1fr 1fr 1fr
+              grid-template-rows: auto
+              mediaquery:
+                '(max-width: 800px)':
+                  grid-template-columns: 1fr
+                  grid-template-rows: auto
+                '(max-width: 1600px)':
+                  grid-template-columns: 1fr 1fr
+                  grid-template-rows: auto
+            cards:
+              - type: custom:collapsable-cards
+                title: Light Entities
+                defaultOpen: true
+                cards:
+                  - type: entities
+                    entities:
+                      - light.desk_lamp
+                  - type: entities
+                    entities:
+                      - switch.desk_lamp
+              - type: custom:collapsable-cards
+                title: configuration.yaml inputs
+                cards:
+                  - type: entities
+                    entities:
+                      - input_select.desk_lamp
+                  - type: entities
+                    entities:
+                      - input_boolean.desk_lamp_auto
+                      - input_boolean.desk_lamp_called
+                      - input_boolean.desk_lamp_update
+                      - input_boolean.desk_lamp_reset
+                card_mod:
+                  style: |
+                    ha-card {
+                      overflow: visible !important;
+                    }
+        card_mod:
+          style: |
+            ha-card {
+              overflow: visible !important;
+            }
+      - type: custom:collapsable-cards
+        title: Network Closet Light
+        cards:
+          - type: custom:layout-card
+            layout_type: custom:grid-layout
+            layout:
+              grid-template-columns: 1fr 1fr 1fr
+              grid-template-rows: auto
+              mediaquery:
+                '(max-width: 800px)':
+                  grid-template-columns: 1fr
+                  grid-template-rows: auto
+                '(max-width: 1600px)':
+                  grid-template-columns: 1fr 1fr
+                  grid-template-rows: auto
+            cards:
+              - type: custom:collapsable-cards
+                title: Light Entities
+                defaultOpen: true
+                cards:
+                  - type: entities
+                    entities:
+                      - light.network_closet_light
+                      - light.closet_light
+                  - type: entities
+                    entities:
+                      - light.network_closet_light_bulb
+              - type: custom:collapsable-cards
+                title: configuration.yaml inputs
+                cards:
+                  - type: entities
+                    entities:
+                      - input_select.network_closet_light
+                  - type: entities
+                    entities:
+                      - input_boolean.network_closet_light_auto
+                      - input_boolean.network_closet_light_called
+                      - input_boolean.network_closet_light_update
+                      - input_boolean.network_closet_light_reset
+                card_mod:
+                  style: |
+                    ha-card {
+                      overflow: visible !important;
+                    }
+        card_mod:
+          style: |
+            ha-card {
+              overflow: visible !important;
+            }
+    card_mod:
+      style: |
+        ha-card {
+          overflow: visible !important;
+        }
+card_mod:
+  style: |
+    ha-card {
+      overflow: visible !important;
+    }

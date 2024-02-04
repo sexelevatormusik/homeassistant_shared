@@ -1,0 +1,343 @@
+view_layout:
+  grid-area: main
+type: custom:layout-card
+layout_type: custom:grid-layout
+layout:
+  grid-template-columns: 1fr 1fr 1fr
+  grid-template-rows: auto
+  grid-template-areas: |
+    "oflts1 break1 break1"
+    "ofilt1 ofilt1 ofilt1"
+  mediaquery:
+    '(max-width: 800px)':
+      grid-template-columns: 1fr
+      grid-template-rows: auto
+      grid-template-areas: |
+        "oflts1"
+        "ofilt1"
+    '(max-width: 1600px)':
+      grid-template-columns: 1fr 1fr
+      grid-template-rows: auto
+      grid-template-areas: |
+        "oflts1 break1"
+        "ofilt1 ofilt1"
+cards:
+  - ll_template: office-lights
+    view_layout:
+      grid-area: oflts1
+    type: custom:stack-in-card
+    cards:
+      - type: custom:stack-in-card
+        cards:
+          - type: custom:mushroom-light-card
+            entity: light.office_lights
+            use_light_color: true
+            show_brightness_control: true
+            show_color_temp_control: true
+            show_color_control: true
+            collapsible_controls: false
+            tap_action:
+              action: navigate
+              navigation_path: /dashboard-admin/lights-office
+            hold_action:
+              action: toggle
+          - type: custom:mushroom-select-card
+            entity: input_select.office_lights
+            icon_type: none
+            secondary_info: none
+            primary_info: none
+            card_mod:
+              style: |
+                ha-card {
+                  overflow: visible !important;
+                  position: absolute;
+                  top: 0px;
+                  right: 0px;
+                  width: 45%;
+                  --ha-card-border-width: 0;
+                }
+          - type: custom:stack-in-card
+            cards:
+              - type: custom:stack-in-card
+                cards:
+                  - type: custom:config-template-card
+                    variables:
+                      ENABLED: states['input_boolean.office_light_timer_enabled'].state
+                    entities:
+                      - sensor.office_light_timer_enabled
+                    card:
+                      type: custom:mushroom-entity-card
+                      entity: sensor.office_light_timer_enabled
+                      name: Office Light Timer
+                      icon_color: '${ENABLED == ''on'' ? ''green'' : ''grey''}'
+                      tap_action:
+                        action: call-service
+                        service: input_boolean.toggle
+                        data: {}
+                        target:
+                          entity_id: input_boolean.office_light_timer_enabled
+                      hold_action:
+                        action: navigate
+                        navigation_path: /dashboard-admin/light-timers
+                  - type: custom:config-template-card
+                    variables:
+                      ENABLED: states['input_boolean.office_light_timer_running'].state
+                    entities:
+                      - sensor.office_light_timer_running
+                    card:
+                      type: custom:mushroom-entity-card
+                      entity: sensor.office_light_timer_running
+                      primary_info: none
+                      icon_color: '${ENABLED == ''on'' ? ''green'' : ''grey''}'
+                      card_mod:
+                        style: |
+                          ha-card {
+                            position: absolute;
+                            top: 0px;
+                            right: 0px;
+                            width: 45%;
+                            --ha-card-border-width: 0;
+                          }
+                    card_mod:
+                      style: |
+                        ha-card {
+                          --ha-card-border-width: 0;
+                        }
+                card_mod:
+                  style: |
+                    ha-card {
+                      --ha-card-border-width: 0;
+        card_mod:
+          style: |
+            :host {
+              background: var(--card-background-color);
+            }
+            ha-card {
+              overflow: visible !important;
+              {% if is_state('light.office_lights', 'on') %}
+                background: {{ '#%02x%02x%02x13' % state_attr('light.office_lights', 'rgb_color') }};
+              {% endif %}
+            }
+    card_mod:
+      style: |
+        ha-card {
+          overflow: visible !important;
+        }
+  - ll_template: office-lights-lights
+    view_layout:
+      grid-area: ofilt1
+    type: custom:collapsable-cards
+    title: Lights
+    defaultOpen: true
+    cards:
+      - type: custom:layout-card
+        layout_type: custom:grid-layout
+        layout:
+          grid-template-columns: 1fr 1fr 1fr
+          grid-template-rows: auto
+          mediaquery:
+            '(max-width: 800px)':
+              grid-template-columns: 1fr
+              grid-template-rows: auto
+            '(max-width: 1600px)':
+              grid-template-columns: 1fr 1fr
+              grid-template-rows: auto
+        cards:
+          - type: custom:stack-in-card
+            cards:
+              - type: custom:stack-in-card
+                cards:
+                  - type: custom:mushroom-light-card
+                    entity: light.office_light
+                    use_light_color: true
+                    show_brightness_control: true
+                    show_color_temp_control: true
+                    show_color_control: true
+                    collapsible_controls: false
+                    hold_action:
+                      action: toggle
+                    tap_action:
+                      action: navigate
+                      navigation_path: /dashboard-admin/lights-office
+                  - type: custom:mushroom-select-card
+                    entity: input_select.office_light
+                    icon_type: none
+                    secondary_info: none
+                    primary_info: none
+                    card_mod:
+                      style: |
+                        ha-card {
+                          overflow: visible !important;
+                          position: absolute;
+                          top: 0px;
+                          right: 0px;
+                          width: 45%;
+                          --ha-card-border-width: 0;
+                        }
+                card_mod:
+                  style: |
+                    :host {
+                      background: var(--card-background-color);
+                    }
+                    ha-card {
+                      overflow: visible !important;
+                      {% if is_state('light.office_light', 'on') %}
+                        background: {{ '#%02x%02x%02x13' % state_attr('light.office_light', 'rgb_color') }};
+                      {% endif %}
+                    }
+            card_mod:
+              style: |
+                ha-card {
+                  overflow: visible !important;
+                }
+          - type: custom:stack-in-card
+            cards:
+              - type: custom:stack-in-card
+                cards:
+                  - type: custom:mushroom-light-card
+                    entity: light.office_lamp
+                    use_light_color: true
+                    show_brightness_control: true
+                    show_color_temp_control: true
+                    show_color_control: true
+                    collapsible_controls: false
+                    hold_action:
+                      action: toggle
+                    tap_action:
+                      action: navigate
+                      navigation_path: /dashboard-admin/lights-office
+                  - type: custom:mushroom-select-card
+                    entity: input_select.office_lamp
+                    icon_type: none
+                    secondary_info: none
+                    primary_info: none
+                    card_mod:
+                      style: |
+                        ha-card {
+                          overflow: visible !important;
+                          position: absolute;
+                          top: 0px;
+                          right: 0px;
+                          width: 45%;
+                          --ha-card-border-width: 0;
+                        }
+                card_mod:
+                  style: |
+                    :host {
+                      background: var(--card-background-color);
+                    }
+                    ha-card {
+                      overflow: visible !important;
+                      {% if is_state('light.office_lamp', 'on') %}
+                        background: {{ '#%02x%02x%02x13' % state_attr('light.office_lamp', 'rgb_color') }};
+                      {% endif %}
+                    }
+            card_mod:
+              style: |
+                ha-card {
+                  overflow: visible !important;
+                }
+          - type: custom:stack-in-card
+            cards:
+              - type: custom:stack-in-card
+                cards:
+                  - type: custom:mushroom-light-card
+                    entity: light.desk_lamp
+                    use_light_color: true
+                    show_brightness_control: true
+                    show_color_temp_control: true
+                    show_color_control: true
+                    collapsible_controls: false
+                    hold_action:
+                      action: toggle
+                    tap_action:
+                      action: navigate
+                      navigation_path: /dashboard-admin/lights-office
+                  - type: custom:mushroom-select-card
+                    entity: input_select.desk_lamp
+                    icon_type: none
+                    secondary_info: none
+                    primary_info: none
+                    card_mod:
+                      style: |
+                        ha-card {
+                          overflow: visible !important;
+                          position: absolute;
+                          top: 0px;
+                          right: 0px;
+                          width: 45%;
+                          --ha-card-border-width: 0;
+                        }
+                card_mod:
+                  style: |
+                    :host {
+                      background: var(--card-background-color);
+                    }
+                    ha-card {
+                      overflow: visible !important;
+                      {% if is_state('light.desk_lamp', 'on') %}
+                        background: {{ '#%02x%02x%02x13' % state_attr('light.desk_lamp', 'rgb_color') }};
+                      {% endif %}
+                    }
+            card_mod:
+              style: |
+                ha-card {
+                  overflow: visible !important;
+                }
+          - type: custom:stack-in-card
+            cards:
+              - type: custom:stack-in-card
+                cards:
+                  - type: custom:mushroom-light-card
+                    entity: light.network_closet_light
+                    use_light_color: true
+                    show_brightness_control: true
+                    show_color_temp_control: true
+                    show_color_control: true
+                    collapsible_controls: false
+                    hold_action:
+                      action: toggle
+                    tap_action:
+                      action: navigate
+                      navigation_path: /dashboard-admin/lights-office
+                  - type: custom:mushroom-select-card
+                    entity: input_select.network_closet_light
+                    icon_type: none
+                    secondary_info: none
+                    primary_info: none
+                    card_mod:
+                      style: |
+                        ha-card {
+                          overflow: visible !important;
+                          position: absolute;
+                          top: 0px;
+                          right: 0px;
+                          width: 45%;
+                          --ha-card-border-width: 0;
+                        }
+                card_mod:
+                  style: |
+                    :host {
+                      background: var(--card-background-color);
+                    }
+                    ha-card {
+                      overflow: visible !important;
+                      {% if is_state('light.network_closet_light', 'on') %}
+                        background: {{ '#%02x%02x%02x13' % state_attr('light.network_closet_light', 'rgb_color') }};
+                      {% endif %}
+                    }
+            card_mod:
+              style: |
+                ha-card {
+                  overflow: visible !important;
+                }
+    card_mod:
+      style: |
+        ha-card {
+          overflow: visible !important;
+        }
+card_mod:
+  style: |
+    ha-card {
+      overflow: visible !important;
+    }
