@@ -37,7 +37,7 @@ light:
               brightness: "{{ brightness }}"
             entity_id: light.group_office_lights
           - service: input_boolean.turn_on
-            entity_id: input_boolean.office_lights_update
+            entity_id: input_boolean.office_lights_reset
         set_temperature:
           - service: input_boolean.turn_on
             entity_id: input_boolean.office_lights_called
@@ -46,7 +46,7 @@ light:
               color_temp: "{{ color_temp }}"
             entity_id: light.group_office_lights
           - service: input_boolean.turn_on
-            entity_id: input_boolean.office_lights_update
+            entity_id: input_boolean.office_lights_reset
         set_color:
           - service: input_boolean.turn_on
             entity_id: input_boolean.office_lights_called
@@ -57,7 +57,7 @@ light:
                 - "{{ s }}"
             entity_id: light.group_office_lights
           - service: input_boolean.turn_on
-            entity_id: input_boolean.office_lights_update
+            entity_id: input_boolean.office_lights_reset
 
   - platform: template
     lights:
@@ -90,7 +90,7 @@ light:
               brightness: "{{ brightness }}"
             entity_id: light.office_light_bulb
           - service: input_boolean.turn_on
-            entity_id: input_boolean.office_light_update
+            entity_id: input_boolean.office_light_reset
         set_temperature:
           - service: input_boolean.turn_on
             entity_id: input_boolean.office_light_called
@@ -99,7 +99,7 @@ light:
               color_temp: "{{ color_temp }}"
             entity_id: light.office_light_bulb
           - service: input_boolean.turn_on
-            entity_id: input_boolean.office_light_update
+            entity_id: input_boolean.office_light_reset
         set_color:
           - service: input_boolean.turn_on
             entity_id: input_boolean.office_light_called
@@ -110,7 +110,7 @@ light:
                 - "{{ s }}"
             entity_id: light.office_light_bulb
           - service: input_boolean.turn_on
-            entity_id: input_boolean.office_light_update
+            entity_id: input_boolean.office_light_reset
 
   - platform: template
     lights:
@@ -143,7 +143,7 @@ light:
               brightness: "{{ brightness }}"
             entity_id: light.office_lamp_bulb
           - service: input_boolean.turn_on
-            entity_id: input_boolean.office_lamp_update
+            entity_id: input_boolean.office_lamp_reset
         set_temperature:
           - service: input_boolean.turn_on
             entity_id: input_boolean.office_lamp_called
@@ -152,7 +152,7 @@ light:
               color_temp: "{{ color_temp }}"
             entity_id: light.office_lamp_bulb
           - service: input_boolean.turn_on
-            entity_id: input_boolean.office_lamp_update
+            entity_id: input_boolean.office_lamp_reset
         set_color:
           - service: input_boolean.turn_on
             entity_id: input_boolean.office_lamp_called
@@ -163,7 +163,7 @@ light:
                 - "{{ s }}"
             entity_id: light.office_lamp_bulb
           - service: input_boolean.turn_on
-            entity_id: input_boolean.office_lamp_update
+            entity_id: input_boolean.office_lamp_reset
 
   - platform: template
     lights:
@@ -220,7 +220,7 @@ light:
               brightness: "{{ brightness }}"
             entity_id: light.network_closet_light_bulb
           - service: input_boolean.turn_on
-            entity_id: input_boolean.network_closet_light_update
+            entity_id: input_boolean.network_closet_light_reset
 
 template:
 
@@ -362,11 +362,11 @@ input_boolean:
     name: "Office Lights Automatic"
     initial: off
 
-  office_lights_reset:
+  office_lights_update:
     name: "Office Lights Reset"
     initial: off
 
-  office_lights_update:
+  office_lights_reset:
     name: "Office Lights Update"
     initial: off
 
@@ -387,11 +387,11 @@ input_boolean:
     name: "Office Light Automatic"
     initial: off
 
-  office_light_reset:
+  office_light_update:
     name: "Office Light Reset"
     initial: off
 
-  office_light_update:
+  office_light_reset:
     name: "Office Light Update"
     initial: off
 
@@ -404,11 +404,11 @@ input_boolean:
     name: "Office Lamp Automatic"
     initial: off
 
-  office_lamp_reset:
+  office_lamp_update:
     name: "Office Lamp Reset"
     initial: off
 
-  office_lamp_update:
+  office_lamp_reset:
     name: "Office Lamp Update"
     initial: off
 
@@ -421,11 +421,11 @@ input_boolean:
     name: "Network Closet Light Automatic"
     initial: off
 
-  network_closet_light_reset:
+  network_closet_light_update:
     name: "Network Closet Light Reset"
     initial: off
 
-  network_closet_light_update:
+  network_closet_light_reset:
     name: "Network Closet Light Update"
     initial: off
 
@@ -438,11 +438,11 @@ input_boolean:
     name: "Desk Lamp Automatic"
     initial: off
 
-  desk_lamp_reset:
+  desk_lamp_update:
     name: "Desk Lamp Reset"
     initial: off
 
-  desk_lamp_update:
+  desk_lamp_reset:
     name: "Desk Lamp Update"
     initial: off
 
